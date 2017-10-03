@@ -47,6 +47,11 @@
 			</h:selectManyListbox>
 			<h:message for="autores"/>
 		</div>
+		
+		<div>
+			<h:outputLabel value="Capa do livro"/>
+			<h:inputFile id="summary" label="Sumário do livro"/>
+		</div>
 		<h:commandButton value=" Gravar" action="#{adminBooksBean.save}"/>
 	</h:form>
 </h:body>
