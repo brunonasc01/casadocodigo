@@ -15,6 +15,10 @@
 			<f:facet name="header">Autores</f:facet>
 			<ui:repeat var="author" value="#{book.authors}">#{author.name}|</ui:repeat>
 		</h:column>
+		<h:column>
+			<f:facet name="header">Sumário</f:facet>
+			<h:outputLink value="#{request.contextPath}/#{book.summaryPath}">#{book.summaryPath}</h:outputLink>
+		</h:column>
 	</h:dataTable>
 </h:body>
 </html>

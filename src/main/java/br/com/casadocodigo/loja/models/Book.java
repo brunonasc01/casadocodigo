@@ -46,6 +46,8 @@ public class Book {
 	@Future
 	private Calendar releaseDate;
 
+	private String summaryPath;
+
 	public Integer getId() {
 		return id;
 	}
@@ -90,6 +92,12 @@ public class Book {
 	}
 	public void setAuthors(List<Author> authors) {
 		this.authors = authors;
+	}
+	public String getSummaryPath() {
+		return summaryPath;
+	}
+	public void setSummaryPath(String summaryPath) {
+		this.summaryPath = summaryPath;
 	}
 
 	@Override
