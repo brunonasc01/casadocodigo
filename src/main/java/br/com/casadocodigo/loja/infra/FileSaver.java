@@ -2,55 +2,39 @@ package br.com.casadocodigo.loja.infra;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 
 public class FileSaver {
 
-	@Inject
-	private HttpServletRequest request;
+	@Inject AmazonS3 s3;
 
 	private static final String CONTENT_DISPOSITION = "content-disposition";
-	private static final String FILENAME_KEY = "filename=";
-	private static final String RESOURCE_FOLDER = "C:/AMBDEVATLAS/bruno/jee_environment/resources/";
 
 	public String write(String baseFolder, Part multipartFile) {
 
-		AmazonS3 s3 = client();
-
-		//String serverPath = request.getServletContext().getRealPath("/" + baseFolder);
 		String fileName = extractFilename(multipartFile.getHeader(CONTENT_DISPOSITION));
 
 		File file = new File(fileName);
+		String path = file.getName();
+		String nameOnly = path.substring(0,path.lastIndexOf("."));
+		String extension = path.substring(path.lastIndexOf("."));
 
-		String path = RESOURCE_FOLDER + baseFolder + "/" + file.getName();
+		Random rand = new Random();
+		fileName = nameOnly+"_"+rand.nextInt(100000)+extension;
 
 		try {
-//			multipartFile.write(path);
 			s3.putObject("brnasc-web", fileName, multipartFile.getInputStream(),new ObjectMetadata());
 
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		return path;
-	}
-
-	private AmazonS3 client(){
-		BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIAJ2RWPGONXCAPIKAA",
-				"loQUtFf3ARqfsusge9svZIN3pXUkzk7x3AsY+bvh");
-
-		AmazonS3 s3Client = AmazonS3ClientBuilder.standard().
-				withCredentials(new AWSStaticCredentialsProvider(awsCreds)).withRegion("sa-east-1").build();
-
-		return s3Client;
+		return "https://s3-sa-east-1.amazonaws.com/brnasc-web/"+fileName;
 	}
 
 	private String extractFilename(String contentDisposition) {

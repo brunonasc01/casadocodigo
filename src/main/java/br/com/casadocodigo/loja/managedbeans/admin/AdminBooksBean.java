@@ -66,31 +66,6 @@ public class AdminBooksBean {
 		this.authors = authorDAO.list();
 	}
 
-	private String extractFilename(String contentDisposition) {
-		if (contentDisposition == null) {
-			return null;
-		}
-		String fileNameKey = "filename=";
-		int startIndex = contentDisposition.indexOf(fileNameKey);
-		if (startIndex == -1) {
-			return null;
-		}
-		String filename = contentDisposition.substring(startIndex
-				+ fileNameKey.length());
-		if (filename.startsWith("\"")) {
-			int endIndex = filename.indexOf("\"", 1);
-			if (endIndex != -1) {
-				return filename.substring(1, endIndex);
-			}
-		} else {
-			int endIndex = filename.indexOf(";");
-			if (endIndex != -1) {
-				return filename.substring(0, endIndex);
-			}
-		}
-		return filename;
-	}
-
 	public Book getProduct() {
 		return product;
 	}
