@@ -7,6 +7,12 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+
 public class FileSaver {
 
 	@Inject
@@ -17,6 +23,9 @@ public class FileSaver {
 	private static final String RESOURCE_FOLDER = "C:/AMBDEVATLAS/bruno/jee_environment/resources/";
 
 	public String write(String baseFolder, Part multipartFile) {
+
+		AmazonS3 s3 = client();
+
 		//String serverPath = request.getServletContext().getRealPath("/" + baseFolder);
 		String fileName = extractFilename(multipartFile.getHeader(CONTENT_DISPOSITION));
 
@@ -25,11 +34,23 @@ public class FileSaver {
 		String path = RESOURCE_FOLDER + baseFolder + "/" + file.getName();
 
 		try {
-			multipartFile.write(path);
+//			multipartFile.write(path);
+			s3.putObject("brnasc-web", fileName, multipartFile.getInputStream(),new ObjectMetadata());
+
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 		return path;
+	}
+
+	private AmazonS3 client(){
+		BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIAJ2RWPGONXCAPIKAA",
+				"loQUtFf3ARqfsusge9svZIN3pXUkzk7x3AsY+bvh");
+
+		AmazonS3 s3Client = AmazonS3ClientBuilder.standard().
+				withCredentials(new AWSStaticCredentialsProvider(awsCreds)).withRegion("sa-east-1").build();
+
+		return s3Client;
 	}
 
 	private String extractFilename(String contentDisposition) {
