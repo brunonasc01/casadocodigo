@@ -46,7 +46,7 @@ public class Book {
 	@Future
 	private Calendar releaseDate;
 
-	private String summaryPath;
+	private String coverPath;
 
 	public Integer getId() {
 		return id;
@@ -93,13 +93,12 @@ public class Book {
 	public void setAuthors(List<Author> authors) {
 		this.authors = authors;
 	}
-	public String getSummaryPath() {
-		return summaryPath;
+	public String getCoverPath() {
+		return coverPath;
 	}
-	public void setSummaryPath(String summaryPath) {
-		this.summaryPath = summaryPath;
+	public void setCoverPath(String coverPath) {
+		this.coverPath = coverPath;
 	}
-
 	@Override
 	public String toString() {
 		return "Product [title=" + title + ", description=" + description + "]";

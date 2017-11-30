@@ -51,9 +51,9 @@ public class AdminBooksBean {
 	@Transactional
 	public String save(){
 		//System.out.println(extractFilename(summary.getHeader("content-disposition")));
-		String summaryPath = fileSaver.write("summaries", summary);
+		String coverPath = fileSaver.write("summaries", summary);
 
-		product.setSummaryPath(summaryPath);
+		product.setCoverPath(coverPath);
 		bookDAO.save(product);
 
 		messagesHelper.addFlash(new FacesMessage("Livro gravado com sucesso"));
