@@ -39,15 +39,21 @@
 	<section class="buy-options clearfix">
 		<form jsf:id="form" method="post" class="container">
 			<ul id="variants" class="clearfix">
-				<li class="buy-option"><input type="radio" name="id"
-					class="variant-radio"
-					id="product-variant-#{productDetailBean.book.id}"
-					value="#{productDetailBean.book.id}" checked="checked" />
-					<label class="variant-label" for="product-variant-#{productDetailBean.book.id}"> E-book
-						+ Impresso </label> <small class="compare-at-price">R$ #{productDetailBean.book.price}</small>
+				<li class="buy-option">
+					<input type="radio" name="id" class="variant-radio"
+							id="product-variant-#{productDetailBean.book.id}"
+							value="#{productDetailBean.book.id}" checked="checked" />
+					<label class="variant-label" 
+						for="product-variant-#{productDetailBean.book.id}">
+						E-book + Impresso
+					</label>
+
+					<small class="compare-at-price">R$ #{productDetailBean.book.price}</small>
+
 					<p class="variant-price">R$ #{productDetailBean.book.price}</p>
 				</li>
 			</ul>
+			
 			<button type="submit"
 				jsf:action="#{shoppingCartBean.add(productDetailBean.id)}"
 				class="submit-image icon-basket-alt"

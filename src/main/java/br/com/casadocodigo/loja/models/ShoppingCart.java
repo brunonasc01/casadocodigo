@@ -7,11 +7,11 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ShoppingCard implements Serializable {
+public class ShoppingCart implements Serializable {
 
 	private static final long serialVersionUID = 7850305149527655083L;
 
-	public ShoppingCard() {
+	public ShoppingCart() {
 		// TODO Auto-generated constructor stub
 	}
 
