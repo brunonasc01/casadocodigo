@@ -5,9 +5,12 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-<ui:composition template="/site/_template.xhtml">
+<head>
+
+</head>
+
 	<ui:param name="bodyClass" value="cart"/>	
-	<ui:define name="body">
+	<body>
 		<section class="container middle">
 		  <h2 id="cart-title">Seu carrinho de compras</h2>
 		  
@@ -31,10 +34,11 @@
 		        </tr>
 		      </thead>
 		      <tbody>
-		      <form jsf:id="cartForm" jsf:prependId="false" method="post">
+		      <form jsf:id="cartForm" method="post">
 			      <ui:repeat var="item" value="#{shoppingCart.list}">
 				        <tr>
-				          <td class="cart-img-col"><img src="#{item.book.coverPath}" width="71px" height="100px"/></td><td class="item-title">#{item.book.title}</td>
+				          <td class="cart-img-col"><img src="#{item.book.coverPath}" width="71px" height="100px"/></td>
+				          <td class="item-title">#{item.book.title}</td>
 				          <td class="numeric-cell">R$ #{item.price}</td>
 				          <td class="quantity-input-cell"><input type="number" min="0" readonly="readonly" id="updates_4082273665" name="updates[4082273665]" value="#{shoppingCart.getQuantity(item)}"/></td>
 				          <td class="numeric-cell">R$ #{shoppingCart.getTotal(item)}</td>
@@ -46,7 +50,9 @@
 		      </tbody>
 			      <tfoot>
 			        <tr>
-			          <td colspan="3"><a href="${request.contextPath}/site/checkout.xhtml" id="checkout" class="checkout">Finalizar compra </a></td>
+			          	<td colspan="3">
+			          		<a href="${request.contextPath}/site/checkout.xhtml" id="checkout" class="checkout">Finalizar compra </a>
+			          	</td>
 			          <td class="quantity-input-cell"><input type="submit" class="update-cart" disabled="disabled" name="update" value=""/></td>
 			          <td class="numeric-cell">R$ #{shoppingCart.total}</td><td></td>
 			        </tr>
@@ -68,9 +74,9 @@
 		  
 		  <h2><a href="http://www.casadocodigo.com.br">Veja todos os livros que publicamos!</a></h2>
 		</section> 
-	</ui:define>
+	</body>
 
-</ui:composition>
+
 
 	
 </html>	

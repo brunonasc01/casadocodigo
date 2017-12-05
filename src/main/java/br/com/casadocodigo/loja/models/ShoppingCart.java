@@ -7,13 +7,14 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
+@Named
+@SessionScoped
 public class ShoppingCart implements Serializable {
 
 	private static final long serialVersionUID = 7850305149527655083L;
-
-	public ShoppingCart() {
-		// TODO Auto-generated constructor stub
-	}
 
 	private Map<ShoppingItem, Integer> items =
 			new LinkedHashMap<ShoppingItem, Integer>();
