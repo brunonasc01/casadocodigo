@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import br.com.casadocodigo.loja.models.validation.groups.BuyerGroup;
+
 @Entity
 public class SystemUser {
 
@@ -19,24 +21,23 @@ public class SystemUser {
 	@NotBlank
 	@Column(unique=true)
 	private String email;
-	@NotBlank
+	@NotBlank(groups=BuyerGroup.class)
 	private String firstName;
-	@NotBlank
+	@NotBlank(groups=BuyerGroup.class)
 	private String lastName;
-	@NotBlank
-	@Column(unique=true)
+	@NotBlank(groups=BuyerGroup.class)
 	private String socialId;
-	@NotBlank
+	@NotBlank(groups=BuyerGroup.class)
 	private String address;
-	@NotBlank
+	@NotBlank(groups=BuyerGroup.class)
 	private String city;
-	@NotBlank
+	@NotBlank(groups=BuyerGroup.class)
 	private String state;
-	@NotBlank
+	@NotBlank(groups=BuyerGroup.class)
 	private String postalCode;
-	@NotBlank
+	@NotBlank(groups=BuyerGroup.class)
 	private String phone;
-	@NotBlank
+	@NotBlank(groups=BuyerGroup.class)
 	private String country;
 	private String password;
 
