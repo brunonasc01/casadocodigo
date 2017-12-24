@@ -3,7 +3,9 @@ package br.com.casadocodigo.loja.managedbeans.site;
 import java.io.IOException;
 
 import javax.enterprise.inject.Model;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import br.com.casadocodigo.loja.daos.CheckoutDAO;
@@ -26,6 +28,9 @@ public class CheckoutBean {
 	@Inject
 	private ShoppingCart cart;
 
+	@Inject
+	private FacesContext facesContext;
+
 	public SystemUser getSystemUser() {
 		return systemUser;
 	}
@@ -43,7 +48,10 @@ public class CheckoutBean {
 		Checkout checkout = new Checkout(systemUser, cart);
 		checkoutDAO.save(checkout);
 
-		//criar o client para enviar request rest
+		String contextName = facesContext.getExternalContext().getContextName();
+		HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
+		response.setStatus(307); //gera redirect
+		response.setHeader("Location", "/"+contextName+"/services/payment?uuid="+checkout.getUuid());
 	}
 
 }
